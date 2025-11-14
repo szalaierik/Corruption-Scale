@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GitHub Pages Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #0066cc;
+        }
+        pre {
+            background: #eee;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>GitHub Pages JavaScript + AJAX Example</h1>
+    <p><strong>URL Parameters:</strong></p>
+    <pre id="params">Loading...</pre>
+
+    <p><strong>Data from data.json:</strong></p>
+    <pre id="json">Loading...</pre>
+
+    <script>
+        // --- Read URL parameters ---
+        const params = new URLSearchParams(window.location.search);
+        let paramObj = {};
+        for (const [key, value] of params.entries()) {
+            paramObj[key] = value;
+        }
+        document.getElementById('params').textContent = 
+            Object.keys(paramObj).length ? JSON.stringify(paramObj, null, 2) : "No parameters in URL.";
+
+        // --- Fetch JSON from same repo ---
+        fetch('data.json')
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('json').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('json').textContent = "Error loading JSON: " + error;
+            });
+    </script>
+</body>
+</html>

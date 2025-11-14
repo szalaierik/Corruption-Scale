@@ -1,0 +1,8 @@
+{
+    "message": "Hello from data.json!",
+    "items": ["apple", "banana", "cherry"],
+    "nested": {
+        "foo": 123,
+        "bar": true
+    }
+}
